@@ -18,6 +18,7 @@
 
 - [Quick start](#quick-start)
 - [Status](#status)
+- [TODO](#TO-DO)
 - [CLI Usage](#running-cli)
 - [Creators](#creators)
 - [Copyright and license](#copyright-and-license)
@@ -35,6 +36,7 @@ Several quick start options are available:
 ## Status
 
 ![Build](https://img.shields.io/badge/build-v1.0.0--alpha-orange)
+![compiling](https://img.shields.io/badge/compiling%20projects-failing-red)
 ![GitHub issues](https://img.shields.io/github/issues/runesc/Refresh-UI)
 ![Pypi](https://img.shields.io/badge/pip-v1.0.0-blue)
 ![GitHub forks](https://img.shields.io/github/forks/runesc/Refresh-UI)
@@ -43,6 +45,11 @@ Several quick start options are available:
 ![Twitter](https://img.shields.io/twitter/url?url=https%3A%2F%2Fgithub.com%2Frunesc%2FPPG
 )
 
+## TO DO
+- Fix *`build_settings`* in *`ApplicationContext`*
+- Fix *`ppg freeze`*
+- Fix *`shiboken6`* hook in *`ppg/freeze`*
+- Mod *`project_template`* in *`ppg/builtin_commands/project_template`*
 
 ## Documentation
 

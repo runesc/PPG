@@ -4,7 +4,7 @@
   </a>
 </p>
 
-<h3 align="center">PPG - Python Package Generator</h3>
+<h3 align="center">PPG - Python Package Generator (1.0.0-alpha01)</h3>
 
 <p align="center">
   Sleek, intuitive, and powerful framework for faster and easier PyQt/PySide App development.

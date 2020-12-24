@@ -1,5 +1,5 @@
-from fbs import path
-from fbs.installer import _generate_installer_resources
+from ppg import path
+from ppg.installer import _generate_installer_resources
 from subprocess import check_call, DEVNULL
 
 def create_installer_windows():
@@ -11,6 +11,6 @@ def create_installer_windows():
         )
     except FileNotFoundError:
         raise FileNotFoundError(
-            "fbs could not find executable 'makensis'. Please install NSIS and "
+            "ppg could not find executable 'makensis'. Please install NSIS and "
             "add its installation directory to your PATH environment variable."
         ) from None

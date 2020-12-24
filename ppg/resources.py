@@ -109,7 +109,7 @@ class _paths:
             # Python < 3.6:
             return path_.resolve()
 
-def _copy(path_fn, src, dst): # Used by several other internal fbs modules
+def _copy(path_fn, src, dst): # Used by several other internal ppg modules
     src = path_fn(src)
     if exists(src):
         filter_ = [path_fn(f) for f in SETTINGS['files_to_filter']]

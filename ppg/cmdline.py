@@ -13,8 +13,8 @@ _LOG = logging.getLogger(__name__)
 
 def main(project_dir=None):
     """
-    This function is executed when you run `fbs ...` on the command line. You
-    can call this function from your own build script to run fbs as if it were
+    This function is executed when you run `ppg ...` on the command line. You
+    can call this function from your own build script to run ppg as if it were
     called via the above command. For an example, see:
         https://build-system.fman.io/manual/#custom-commands
     """
@@ -40,7 +40,7 @@ def main(project_dir=None):
 
 def command(f):
     """
-    Use this as a decorator to define custom fbs commands. For an example, see:
+    Use this as a decorator to define custom ppg commands. For an example, see:
         https://build-system.fman.io/manual/#custom-commands
     """
     COMMANDS[f.__name__] = f
@@ -59,7 +59,7 @@ def _parse_cmdline():
     return parser.print_help, ()
 
 def _get_cmdline_parser():
-    # Were we invoked with `python -m fbs`?
+    # Were we invoked with `python -m ppg`?
     is_python_m_fbs = splitext(basename(sys.argv[0]))[0] == '__main__'
     if is_python_m_fbs:
         prog = '%s -m ppg' % basename(sys.executable)

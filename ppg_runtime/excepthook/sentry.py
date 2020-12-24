@@ -1,5 +1,5 @@
-from fbs_runtime.excepthook import ExceptionHandler
-from fbs_runtime.excepthook._util import RateLimiter
+from ppg_runtime.excepthook import ExceptionHandler
+from ppg_runtime.excepthook._util import RateLimiter
 
 import sentry_sdk
 

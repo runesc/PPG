@@ -1,5 +1,5 @@
-from fbs import path, SETTINGS
-from fbs.freeze import run_pyinstaller, _generate_resources
+from ppg import path, SETTINGS
+from ppg.freeze import run_pyinstaller, _generate_resources
 from os import remove
 from os.path import join, exists
 from shutil import copy

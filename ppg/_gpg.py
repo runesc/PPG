@@ -36,7 +36,7 @@ def _get_keygrip(pubkey_id):
             raise FbsError(
                 "GPG could not read your key for code signing. Perhaps you "
                 "don't want\nto run this command here, but after:\n"
-                "    fbs runvm {ubuntu|fedora|arch}"
+                "    ppg runvm {ubuntu|fedora|arch}"
             )
         raise
     pure_signing_subkey = _find_keygrip(output, 'S')

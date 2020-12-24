@@ -1,5 +1,5 @@
-from fbs import path
-from fbs._gpg import preset_gpg_passphrase
+from ppg import path
+from ppg._gpg import preset_gpg_passphrase
 from subprocess import check_call, DEVNULL
 
 def sign_installer_fedora():

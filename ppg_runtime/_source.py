@@ -1,5 +1,5 @@
 """
-This module contains functions that should only be called by module `fbs`, or
+This module contains functions that should only be called by module `ppg`, or
 when running from source.
 """
 
@@ -44,7 +44,7 @@ def get_settings_paths(project_dir, profiles):
     )))
 
 def default_path(path_str):
-    defaults_dir = join(dirname(__file__), pardir, 'fbs', '_defaults')
+    defaults_dir = join(dirname(__file__), pardir, 'ppg', '_defaults')
     return path(defaults_dir, path_str)
 
 def path(base_dir, path_str):

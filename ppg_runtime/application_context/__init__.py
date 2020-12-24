@@ -82,8 +82,8 @@ class _ApplicationContext:
         An example of this is given in the Manual.
         """
         result = self._qt_binding.QApplication([])
-        #result.setApplicationName(self.build_settings['app_name'])
-        #result.setApplicationVersion(self.build_settings['version'])
+        result.setApplicationName(self.build_settings['app_name'])
+        result.setApplicationVersion(self.build_settings['version'])
         return result
     @cached_property
     def build_settings(self):

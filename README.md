@@ -18,8 +18,10 @@
 
 - [Quick start](#quick-start)
 - [Status](#status)
-- [TODO](#TO-DO)
+- [To Do](#TO-DO)
 - [CLI Usage](#running-cli)
+- [Docs](#Documentation)
+- [Previous docs and releases](#Documentation-for-previous-releases)
 - [Creators](#creators)
 - [Copyright and license](#copyright-and-license)
 
@@ -42,24 +44,24 @@ Several quick start options are available:
 ![GitHub forks](https://img.shields.io/github/forks/runesc/Refresh-UI)
 ![GitHub stars](https://img.shields.io/github/stars/runesc/Refresh-UI)
 ![GitHub licence](	https://img.shields.io/github/license/runesc/PPG)
-![Twitter](https://img.shields.io/twitter/url?url=https%3A%2F%2Fgithub.com%2Frunesc%2FPPG
-)
+![Twitter](https://img.shields.io/twitter/url?url=https%3A%2F%2Fgithub.com%2Frunesc%2FPPG)
 
 ## TO DO
-- Fix *`build_settings`* in *`ApplicationContext`*
-- Fix *`ppg freeze`*
-- Fix *`shiboken6`* hook in *`ppg/freeze`*
-- Mod *`project_template`* in *`ppg/builtin_commands/project_template`*
+- Fix *`build_settings`* in *`ApplicationContext`* ✅
+- Fix *`ppg freeze`* ✅
+- Fix *`shiboken6`* hook in *`ppg/freeze`* (bug is a pyinstaller problem) ❌
+- Mod *`project_template`* in *`ppg/builtin_commands/project_template`* ✅
+- Add *`Refresh-UI`* to project built options (ask when lib is ready) ❌
+
+## Running CLI
+
+TODO: explain CLI
 
 ## Documentation
 
 TODO: link to docs
 
-### Running CLI
-
-TODO: explain CLI
-
-### Documentation for previous releases
+## Documentation for previous releases
 
 TODO: add previous docs and releases (if exists)
 
@@ -71,10 +73,6 @@ TODO: add previous docs and releases (if exists)
 - <https://twitter.com/luisalfredo58>
 - <https://github.com/runesc>
 
-**Giovanni Larama**
-
-- <https://twitter.com/>
-- <https://github.com/larama88>
 
 
 

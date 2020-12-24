@@ -1,5 +1,5 @@
-from fbs import path, SETTINGS
-from fbs._gpg import preset_gpg_passphrase
+from ppg import path, SETTINGS
+from ppg._gpg import preset_gpg_passphrase
 from subprocess import check_call, DEVNULL
 
 def sign_installer_arch():

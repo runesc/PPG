@@ -1,6 +1,6 @@
 """
 This INTERNAL module is used to manage fbs_runtime's global state. Having it
-here, in one central place, allows fbs's test suite to manipulate the state to
+here, in one central place, allows ppg's test suite to manipulate the state to
 simulate various scenarios such as different operating systems.
 """
 

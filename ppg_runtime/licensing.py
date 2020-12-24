@@ -12,7 +12,7 @@ def pack_license_key(data, privkey_args):
         lk_contents = pack_license_key({'email': 'some@user.com'}, ...)
 
     The parameter `privkey_args` is a dictionary containing values for the RSA
-    fields "n", "e", "d", "p" and "q". You can generate it with fbs's command
+    fields "n", "e", "d", "p" and "q". You can generate it with ppg's command
     `init_licensing`.
 
     The resulting string is signed to prevent the end user from changing it.
@@ -40,7 +40,7 @@ def pack_license_key(data, privkey_args):
 class _Licensing:
     """
     This internal class lets us inject the licensing functionality into the
-    application context, in such a way that the fbs user does not have to worry
+    application context, in such a way that the ppg user does not have to worry
     about where the public key is stored.
     """
     def __init__(self, pubkey_args):
@@ -61,7 +61,7 @@ def unpack_license_key(key_str, pubkey_args):
     If the given string is not a valid key, `InvalidKey` is raised.
 
     The parameter `pubkey_args` is a dictionary containing values for the RSA
-    fields "n" and "e". It can be generated with fbs's command `init_licensing`.
+    fields "n" and "e". It can be generated with ppg's command `init_licensing`.
     """
     try:
         result = json.loads(key_str)

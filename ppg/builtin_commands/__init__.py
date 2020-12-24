@@ -1,6 +1,6 @@
 """
-This module contains all of fbs's built-in commands. They are invoked when you
-run `fbs <command>` on the command line. But you are also free to import them in
+This module contains all of ppg's built-in commands. They are invoked when you
+run `ppg <command>` on the command line. But you are also free to import them in
 your Python build script and execute them there.
 """
 from ppg import path, SETTINGS, activate_profile
@@ -42,8 +42,11 @@ def startproject():
 
     #! Always ask to user which framework wants to use
     python_bindings = prompt_for_value(
-        'Qt bindings', choices=('PyQt5', 'PySide2', 'PySide6'), default='PyQt5'
+        'Qt bindings', choices=('PyQt5', 'PySide2', 'PySide6'), default='PySide6'
     )
+
+    #TODO: Ask user if wants to use RefreshUI framework
+
     eg_bundle_id = 'com.%s.%s' % (
         author.lower().split()[0], ''.join(app.lower().split())
     )
@@ -92,7 +95,6 @@ def run():
     if old_pythonpath:
         pythonpath += os.pathsep + old_pythonpath
     env['PYTHONPATH'] = pythonpath
-    print(SETTINGS)
     subprocess.run([sys.executable, path(SETTINGS['main_module'])], env=env)
 
 @command
@@ -110,30 +112,31 @@ def freeze(debug=False):
     # fbs <-> fbs.freeze.X.
     app_name = SETTINGS['app_name']
     if is_mac():
-        from fbs.freeze.mac import freeze_mac
+        from ppg.freeze.mac import freeze_mac
         freeze_mac(debug=debug)
         executable = 'target/%s.app/Contents/MacOS/%s' % (app_name, app_name)
     else:
         executable = join('target', app_name, app_name)
         if is_windows():
-            from fbs.freeze.windows import freeze_windows
+            from ppg.freeze.windows import freeze_windows
             freeze_windows(debug=debug)
             executable += '.exe'
         elif is_linux():
             if is_ubuntu():
-                from fbs.freeze.ubuntu import freeze_ubuntu
+                from ppg.freeze.ubuntu import freeze_ubuntu
                 freeze_ubuntu(debug=debug)
             elif is_arch_linux():
-                from fbs.freeze.arch import freeze_arch
+                from ppg.freeze.arch import freeze_arch
                 freeze_arch(debug=debug)
             elif is_fedora():
-                from fbs.freeze.fedora import freeze_fedora
+                from ppg.freeze.fedora import freeze_fedora
                 freeze_fedora(debug=debug)
             else:
-                from fbs.freeze.linux import freeze_linux
+                from ppg.freeze.linux import freeze_linux
                 freeze_linux(debug=debug)
         else:
             raise FbsError('Unsupported OS')
+    #! Change this
     _LOG.info(
         "Done. You can now run `%s`. If that doesn't work, see "
         "https://build-system.fman.io/troubleshooting.", executable
@@ -146,14 +149,14 @@ def sign():
     """
     require_frozen_app()
     if is_windows():
-        from fbs.sign.windows import sign_windows
+        from ppg.sign.windows import sign_windows
         sign_windows()
         _LOG.info(
             'Signed all binary files in %s and its subdirectories.',
             relpath(path('${freeze_dir}'), path('.'))
         )
     elif is_mac():
-        _LOG.info('fbs does not yet implement `sign` on macOS.')
+        _LOG.info('ppg does not yet implement `sign` on macOS.')
     else:
         _LOG.info('This platform does not support signing frozen apps.')
 
@@ -165,7 +168,7 @@ def installer():
     require_frozen_app()
     linux_distribution_not_supported_msg = \
         "Your Linux distribution is not supported, sorry. " \
-        "You can run `fbs buildvm` followed by `fbs runvm` to start a Docker " \
+        "You can run `ppg buildvm` followed by `ppg runvm` to start a Docker " \
         "VM of a supported distribution."
     try:
         installer_fname = SETTINGS['installer']
@@ -176,25 +179,25 @@ def installer():
     out_file = join('target', installer_fname)
     msg_parts = ['Created %s.' % out_file]
     if is_windows():
-        from fbs.installer.windows import create_installer_windows
+        from ppg.installer.windows import create_installer_windows
         create_installer_windows()
     elif is_mac():
-        from fbs.installer.mac import create_installer_mac
+        from ppg.installer.mac import create_installer_mac
         create_installer_mac()
     elif is_linux():
         app_name = SETTINGS['app_name']
         if is_ubuntu():
-            from fbs.installer.ubuntu import create_installer_ubuntu
+            from ppg.installer.ubuntu import create_installer_ubuntu
             create_installer_ubuntu()
             install_cmd = 'sudo dpkg -i ' + out_file
             remove_cmd = 'sudo dpkg --purge ' + app_name
         elif is_arch_linux():
-            from fbs.installer.arch import create_installer_arch
+            from ppg.installer.arch import create_installer_arch
             create_installer_arch()
             install_cmd = 'sudo pacman -U ' + out_file
             remove_cmd = 'sudo pacman -R ' + app_name
         elif is_fedora():
-            from fbs.installer.fedora import create_installer_fedora
+            from ppg.installer.fedora import create_installer_fedora
             create_installer_fedora()
             install_cmd = 'sudo dnf install ' + out_file
             remove_cmd = 'sudo dnf remove ' + app_name
@@ -217,20 +220,20 @@ def sign_installer():
     Sign installer, so the user's OS trusts it
     """
     if is_mac():
-        _LOG.info('fbs does not yet implement `sign_installer` on macOS.')
+        _LOG.info('ppg does not yet implement `sign_installer` on macOS.')
         return
     if is_ubuntu():
         _LOG.info('Ubuntu does not support signing installers.')
         return
     require_installer()
     if is_windows():
-        from fbs.sign_installer.windows import sign_installer_windows
+        from ppg.sign_installer.windows import sign_installer_windows
         sign_installer_windows()
     elif is_arch_linux():
-        from fbs.sign_installer.arch import sign_installer_arch
+        from ppg.sign_installer.arch import sign_installer_arch
         sign_installer_arch()
     elif is_fedora():
-        from fbs.sign_installer.fedora import sign_installer_fedora
+        from ppg.sign_installer.fedora import sign_installer_fedora
         sign_installer_fedora()
     _LOG.info('Signed %s.', join('target', SETTINGS['installer']))
 
@@ -248,11 +251,11 @@ def repo():
         raise FbsError(
             'GPG key for code signing is not configured. You might want to '
             'either\n'
-            '    1) run `fbs gengpgkey` or\n'
+            '    1) run `ppg gengpgkey` or\n'
             '    2) set "gpg_key" and "gpg_pass" in src/build/settings/.'
         )
     if is_ubuntu():
-        from fbs.repo.ubuntu import create_repo_ubuntu
+        from ppg.repo.ubuntu import create_repo_ubuntu
         if not SETTINGS['description']:
             _LOG.info(
                 'Hint: Your app\'s "description" is empty. Consider setting it '
@@ -277,7 +280,7 @@ def repo():
             extra={'wrap': False}
         )
     elif is_arch_linux():
-        from fbs.repo.arch import create_repo_arch
+        from ppg.repo.arch import create_repo_arch
         create_repo_arch()
         _LOG.info(
             "Done. You can test the repository with the following commands:\n"
@@ -297,7 +300,7 @@ def repo():
             extra={'wrap': False}
         )
     elif is_fedora():
-        from fbs.repo.fedora import create_repo_fedora
+        from ppg.repo.fedora import create_repo_fedora
         create_repo_fedora()
         _LOG.info(
             "Done. You can test the repository with the following commands:\n"
@@ -318,7 +321,7 @@ def repo():
 @command
 def upload():
     """
-    Upload installer and repository to fbs.sh
+    Upload installer and repository to ppg.sh
     """
     require_existing_project()
     try:
@@ -328,8 +331,8 @@ def upload():
         raise FbsError(
             'Could not find setting "%s". You may want to invoke one of the '
             'following:\n'
-            ' * fbs register\n'
-            ' * fbs login'
+            ' * ppg register\n'
+            ' * ppg login'
             % (e.args[0],)
         ) from None
     _upload_repo(username, password)
@@ -492,7 +495,7 @@ def clean():
 
 def _has_windows_codesigning_certificate():
     assert is_windows()
-    from fbs.sign.windows import _CERTIFICATE_PATH
+    from ppg.sign.windows import _CERTIFICATE_PATH
     return exists(path(_CERTIFICATE_PATH))
 
 def _has_module(name):

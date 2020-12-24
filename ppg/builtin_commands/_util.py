@@ -39,14 +39,14 @@ def require_existing_project():
         raise FbsError(
             "Could not find the src/ directory. Are you in the right folder?\n"
             "If yes, did you already run\n"
-            "    fbs startproject ?"
+            "    ppg startproject ?"
         )
 
 def require_frozen_app():
     if not exists(path('${freeze_dir}')):
         raise FbsError(
             'It seems your app has not yet been frozen. Please run:\n'
-            '    fbs freeze'
+            '    ppg freeze'
         )
 
 def require_installer():
@@ -54,7 +54,7 @@ def require_installer():
     if not exists(installer):
         raise FbsError(
             'Installer does not exist. Maybe you need to run:\n'
-            '    fbs installer'
+            '    ppg installer'
         )
 
 def update_json(f_path, dict_):

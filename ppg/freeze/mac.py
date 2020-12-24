@@ -1,6 +1,6 @@
-from fbs import path, SETTINGS
-from fbs.freeze import _generate_resources, run_pyinstaller
-from fbs.resources import get_icons
+from ppg import path, SETTINGS
+from ppg.freeze import _generate_resources, run_pyinstaller
+from ppg.resources import get_icons
 from os import makedirs, unlink, rename, symlink
 from os.path import exists
 from shutil import copy, rmtree

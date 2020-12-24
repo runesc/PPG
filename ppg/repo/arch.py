@@ -1,5 +1,5 @@
-from fbs import path, SETTINGS
-from fbs_runtime import FbsError
+from ppg import path, SETTINGS
+from ppg_runtime import FbsError
 from os import makedirs
 from os.path import exists, join
 from shutil import rmtree, copy
@@ -10,7 +10,7 @@ def create_repo_arch():
         raise FbsError(
             'Installer does not exist or is not signed. Maybe you need to '
             'run:\n'
-            '    fbs signinst'
+            '    ppg signinst'
         )
     dest_dir = path('target/repo')
     if exists(dest_dir):

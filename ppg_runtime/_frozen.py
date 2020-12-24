@@ -9,7 +9,7 @@ from ppg_runtime.platform import is_mac
 import sys
 
 # The contents of this dictionary are injected via a PyInstaller runtime hook.
-# See: `fbs.freeze._PyInstallerRuntimehook`.
+# See: `ppg.freeze._PyInstallerRuntimehook`.
 BUILD_SETTINGS = {}
 
 def get_resource_dirs():

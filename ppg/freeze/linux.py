@@ -1,5 +1,5 @@
-from fbs import path
-from fbs.freeze import _generate_resources, run_pyinstaller
+from ppg import path
+from ppg.freeze import _generate_resources, run_pyinstaller
 from glob import glob
 from os import remove
 from shutil import copy

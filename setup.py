@@ -20,7 +20,7 @@ def _get_package_data(pkg_dir, data_subdir):
 description = 'Create cross-platform desktop applications with Python and Qt5/Qt6'
 setup(
     name='ppg',
-    # Also update fbs/_defaults/requirements/base.txt when you change this:
+    # Also update ppg/_defaults/requirements/base.txt when you change this:
     version='1.0.0',
     description=description,
     long_description=

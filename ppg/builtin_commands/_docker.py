@@ -51,11 +51,11 @@ def buildvm(name):
     except CalledProcessError as e:
         if '/private-key.gpg: no such file or directory' in e.stderr:
             message = 'Could not find private-key.gpg. Maybe you want to ' \
-                      'run:\n    fbs gengpgkey'
+                      'run:\n    ppg gengpgkey'
         else:
             message = e.stdout + '\n' + e.stderr
         raise FbsError(message)
-    _LOG.info('Done. You can now execute:\n    fbs runvm ' + name)
+    _LOG.info('Done. You can now execute:\n    ppg runvm ' + name)
 
 @command
 def runvm(name):
@@ -73,7 +73,7 @@ def runvm(name):
         if 'Unable to find image' in e.stderr:
             raise FbsError(
                 'Docker could not find image %s. You may want to run:\n'
-                '    fbs buildvm %s' % (docker_id, name)
+                '    ppg buildvm %s' % (docker_id, name)
             )
 
 def _run_docker(args, **kwargs):
@@ -81,7 +81,7 @@ def _run_docker(args, **kwargs):
         return run(['docker'] + args, **kwargs)
     except FileNotFoundError:
         raise FbsError(
-            'fbs could not find Docker. Is it installed and on your PATH?'
+            'ppg could not find Docker. Is it installed and on your PATH?'
         )
 
 def _get_docker_id(name):

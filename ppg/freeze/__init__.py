@@ -1,15 +1,15 @@
-from fbs import path, SETTINGS
-from fbs._state import LOADED_PROFILES
-from fbs.resources import _copy
-from fbs_runtime._fbs import filter_public_settings
-from fbs_runtime._source import default_path
-from fbs_runtime.platform import is_mac
+from ppg import path, SETTINGS
+from ppg._state import LOADED_PROFILES
+from ppg.resources import _copy
+from ppg_runtime._fbs import filter_public_settings
+from ppg_runtime._source import default_path
+from ppg_runtime.platform import is_mac
 from os import rename, makedirs
 from os.path import join, dirname
 from pathlib import PurePath
 from subprocess import run
 
-import fbs_runtime._frozen
+import ppg_runtime._frozen
 
 def run_pyinstaller(extra_args=None, debug=False):
     if extra_args is None:
@@ -55,7 +55,7 @@ def run_pyinstaller(extra_args=None, debug=False):
 
 def _generate_runtime_hook():
     makedirs(path('target/PyInstaller'), exist_ok=True)
-    module = fbs_runtime._frozen
+    module = ppg_runtime._frozen
     hook_path = path('target/PyInstaller/fbs_pyinstaller_hook.py')
     with open(hook_path, 'w') as f:
         # Inject public settings such as "version" into the binary, so

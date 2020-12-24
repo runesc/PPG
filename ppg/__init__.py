@@ -7,15 +7,15 @@ from ppg_runtime._source import get_settings_paths
 from os.path import abspath
 
 """
-fbs populates SETTINGS with the current build settings. A typical example is
+ppg populates SETTINGS with the current build settings. A typical example is
 SETTINGS['app_name'], which you define in src/build/settings/base.json.
 """
 SETTINGS = _state.SETTINGS
 
 def init(project_dir):
     """
-    Call this if you are invoking neither `fbs` on the command line nor
-    fbs.cmdline.main() from Python.
+    Call this if you are invoking neither `ppg` on the command line nor
+    ppg.cmdline.main() from Python.
     """
     SETTINGS.update(get_core_settings(abspath(project_dir)))
     for profile in get_default_profiles():
@@ -23,7 +23,7 @@ def init(project_dir):
 
 def activate_profile(profile_name):
     """
-    By default, fbs only loads some settings. For instance,
+    By default, ppg only loads some settings. For instance,
     src/build/settings/base.json and .../`os`.json where `os` is one of "mac",
     "linux" or "windows". This function lets you load other settings on the fly.
     A common example would be during a release, where release.json contains the
@@ -46,7 +46,7 @@ def path(path_str):
     try:
         project_dir = SETTINGS['project_dir']
     except KeyError:
-        error_message = "Cannot call path(...) until fbs.init(...) has been " \
+        error_message = "Cannot call path(...) until ppg.init(...) has been " \
                         "called."
         raise FbsError(error_message) from None
     return _source.path(project_dir, path_str)

@@ -1,4 +1,4 @@
-from fbs.freeze.linux import freeze_linux, remove_shared_libraries
+from ppg.freeze.linux import freeze_linux, remove_shared_libraries
 
 def freeze_ubuntu(debug=False):
     freeze_linux(debug)

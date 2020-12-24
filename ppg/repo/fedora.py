@@ -1,6 +1,6 @@
-from fbs import path
-from fbs.resources import copy_with_filtering
-from fbs_runtime._source import default_path
+from ppg import path
+from ppg.resources import copy_with_filtering
+from ppg_runtime._source import default_path
 from os import makedirs, rename
 from os.path import exists
 from shutil import rmtree, copy

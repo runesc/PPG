@@ -1,7 +1,7 @@
-from fbs import path, SETTINGS
-from fbs.installer import _generate_installer_resources
-from fbs.resources import get_icons
-from fbs_runtime.platform import is_arch_linux
+from ppg import path, SETTINGS
+from ppg.installer import _generate_installer_resources
+from ppg.resources import get_icons
+from ppg_runtime.platform import is_arch_linux
 from os import makedirs, remove, rename
 from os.path import join, dirname, exists
 from shutil import copy, rmtree, copytree
@@ -63,7 +63,7 @@ def run_fpm(output_type):
         run(args, check=True, stdout=DEVNULL)
     except FileNotFoundError:
         raise FileNotFoundError(
-            "fbs could not find executable 'fpm'. Please install fpm using the "
+            "ppg could not find executable 'fpm'. Please install fpm using the "
             "instructions at "
             "https://fpm.readthedocs.io/en/latest/installing.html."
         ) from None

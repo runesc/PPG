@@ -14,7 +14,7 @@ def upload_folder_contents(dir_path, dest_path, bucket, key, secret):
     return result
 
 def upload_file(file_path, dest_path, bucket, key, secret):
-    # Import late to not make boto3 a dependency of fbs only when the upload
+    # Import late to not make boto3 a dependency of ppg only when the upload
     # functionality is actually used.
     import boto3
     s3 = boto3.resource(

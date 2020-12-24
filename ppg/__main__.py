@@ -7,10 +7,10 @@ import sys
 
 def _main():
     """
-    Main entry point for the `fbs` command line script.
+    Main entry point for the `ppg` command line script.
 
-    We init logging here instead of in fbs.cmdline.main(...) because the latter
-    can be called by projects using fbs, and it's bad practice for libraries to
+    We init logging here instead of in ppg.cmdline.main(...) because the latter
+    can be called by projects using ppg, and it's bad practice for libraries to
     configure logging. See eg. https://stackoverflow.com/a/26087972/1839209.
     """
     _init_logging()

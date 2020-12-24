@@ -1,5 +1,5 @@
-from fbs import path, SETTINGS
-from fbs_runtime import FbsError
+from ppg import path, SETTINGS
+from ppg_runtime import FbsError
 from os import makedirs
 from os.path import join, splitext, dirname, basename, exists
 from shutil import copy

@@ -78,4 +78,4 @@ TODO: add previous docs and releases (if exists)
 
 ## Copyright and license
 
-Code and documentation copyright 2020–2021 the [PPG](#) and [LARAMA.](https://larama.cl/) Code released under the [GPL v3 License](#). Docs released under [Creative Commons](https://creativecommons.org/licenses/by/3.0/).
+Code and documentation copyright 2020–2021 the [PPG](#) Code released under the [GPL v3 License](#). Docs released under [Creative Commons](https://creativecommons.org/licenses/by/3.0/).

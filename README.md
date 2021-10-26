@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="#">
-     <img src="https://ik.imagekit.io/kummiktgaiq/ppg/logo_OE3b6z79V.png?updatedAt=1635261532682" alt="PPG Logo" width="100%">
+     <img src="https://ik.imagekit.io/kummiktgaiq/ppg/logo_OE3b6z79V.png?updatedAt=1635261532682" alt="PPG Logo" width="50%">
   </a>
 </p>
 

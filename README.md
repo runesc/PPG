@@ -32,7 +32,7 @@
 
 Several quick start options are available:
 
-- [Download the latest release](#)
+- [Download the latest release](https://github.com/runesc/PPG/releases/)
 - Clone the repo: `git clone https://github.com/runesc/ppg.git`
 - Install with Pip: `pip install ppg`
 

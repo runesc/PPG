@@ -5,8 +5,7 @@ from ppg_runtime._signal import SignalWakeupHandler
 from ppg_runtime.excepthook import _Excepthook, StderrExceptionHandler
 from ppg_runtime.platform import is_windows, is_mac
 from functools import lru_cache
-
-
+import importlib
 import sys
 
 def cached_property(getter):
@@ -19,33 +18,36 @@ def cached_property(getter):
     return property(lru_cache()(getter))
 
 
-class LifeCycle:
+class PPGLifeCycle:
     def __init__(self, parent=None):
         super().__init__()
-
-        self.app_life_cycle()
-
-    def app_life_cycle(self):
-        self.componentWillMount()
+        self.component_will_mount()
+        self.allow_bg()
         self.render_()
-        self.componentDidMount()
-        self.setCss()
-        self.translate()
+        self.component_did_mount()
+        self.set_CSS()
+        self.responsive_UI()
 
-    def componentWillMount(self):
-        pass
+    def component_will_mount(self):pass
+    def allow_bg(self):
+        try:
+            from PySide2.QtCore import Qt
+            from PySide6.QtCore import Qt
+            from PyQt5.QtCore import Qt
+            from PyQt6.QtCore import Qt
+            self.setAttribute(Qt.WA_StyledBackground, True)
+        except ImportError or ModuleNotFoundError as e: pass
+    def render_(self):pass
+    def resizeEvent(self, e=None): pass
+    def component_did_mount(self): pass
+    def set_CSS(self, path=None): pass
+    def responsive_UI(self):pass
+    def destroyComponent(self):
+        self.setParent(None)
+        self.deleteLater()
 
-    def render_(self):
-        pass
-
-    def componentDidMount(self):
-        pass
-
-    def setCss(self):
-        pass
-
-    def translate(self):
-        pass
+    @staticmethod
+    def calc(a, b): return int((a * b) / 100.0)
 
 
 class _ApplicationContext:

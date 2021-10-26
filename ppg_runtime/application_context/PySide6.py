@@ -24,7 +24,7 @@ from . import _ApplicationContext, _QtBinding, cached_property
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QApplication
 from PySide6.QtNetwork import QAbstractSocket
-from . import LifeCycle
+from . import PPGLifeCycle
 
 
 

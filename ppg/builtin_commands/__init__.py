@@ -18,31 +18,38 @@ from os import listdir, remove, unlink, mkdir
 from os.path import join, isfile, isdir, islink, dirname, exists, relpath
 from shutil import rmtree
 from unittest import TestSuite, TextTestRunner, defaultTestLoader
+from string import Template
+
+from ppg.builtin_commands.components import component_template
 
 import logging
 import os
 import subprocess
 import sys
+import json
 
 _LOG = logging.getLogger(__name__)
 
 @command
-def startproject():
+def init():
     """
     Start a new project in the current directory
     """
+    print('PPG init v1.0.0\n')
     if exists('src'):
         raise FbsError('The src/ directory already exists. Aborting.')
     app = prompt_for_value('App name', default='MyApp')
+    version = prompt_for_value('Version', default='1.0.0')
     user = getuser().title()
     author = prompt_for_value('Author', default=user)
     has_pyqt = _has_module('PyQt5')
+    has_pyqt6 = _has_module('PyQt6')
     has_pyside = _has_module('PySide2')
     has_pyside_6 = _has_module('PySide6')
 
     #! Always ask to user which framework wants to use
     python_bindings = prompt_for_value(
-        'Qt bindings', choices=('PyQt5', 'PySide2', 'PySide6'), default='PySide6'
+        "Please select your Qt binding [default: 'PySide6']", choices=('PyQt5', 'PyQt6', 'PySide2', 'PySide6'), default='PySide6'
     )
 
     #TODO: Ask user if wants to use RefreshUI framework
@@ -70,11 +77,54 @@ def startproject():
             template_path('src/main/python/main.py')
         ]
     )
-    print('')
+    with open('./src/build/settings/base.json', 'r') as file:
+        json_data = json.loads(file.read())
+        json_data['binding'] = python_bindings
+        json_data['version'] = version
+        json_data['hidden_imports'] = []
+        file.close()
+        
+    with open ('./src/build/settings/base.json', 'w') as file:
+        json.dump(json_data, file, indent=4)
+        file.close()
+
     _LOG.info(
         "Created the src/ directory. If you have %s installed, you can now "
         "do:\n\n    ppg run", python_bindings
     )
+
+@command
+def version(): # pragma: no cover
+    """
+    Prints the version of ppg
+    """
+    print('PPG v%s' % SETTINGS['version'])
+
+@command
+def create(type="component"):
+    if type.lower() == "component" or type.lower() == "view":
+        # Get necessary information
+        name = prompt_for_value("Component name")
+        with open("./src/build/settings/base.json", 'r') as file:
+            binding = json.loads(file.read())['binding']
+            file.close()
+        inherit_from = prompt_for_value("Inherit from", default="QWidget" if binding == "PySide6" or binding == "PySide2" else "QtWidget")
+
+        _LOG.info("Creating component...")
+
+        # Build the component code
+        template = Template(component_template)
+        code = template.substitute(Binding=binding, Name=name.capitalize(), Widget=inherit_from)
+        
+        # Write the code to the file
+        folder = "./src/main/python/components" if type.lower() == "component" else "./src/main/python/views"
+        with open(folder + f"/{name.capitalize()}.py", "w") as file:
+            file.write(code)
+            file.close()
+
+        _LOG.info("Component created!")
+    else:
+        raise FbsError("[Error]: The selected component type is invalid")
 
 @command
 def run():
@@ -84,10 +134,11 @@ def run():
     require_existing_project()
     if not _has_module('PyQt5') and not _has_module('PySide2') and not _has_module('PySide6'):
         raise FbsError(
-            "Couldn't find PyQt5, PySide2 or PySide6. Maybe you need to:\n"
-            "    pip install PyQt5==5.9.2 or\n"
-            "    pip install PySide2==5.12.2 or\n"
-            "    pip install PySide6==6.0.0"
+            "Couldn't find PyQt5, PyQt6, PySide2 or PySide6. Maybe you need to:\n"
+            "    pip install PyQt5 or\n"
+            "    pip install PyQt6 or\n"
+            "    pip install PySide2 or\n"
+            "    pip install PySide6"
         )
     env = dict(os.environ)
     pythonpath = path('src/main/python')
@@ -106,7 +157,7 @@ def freeze(debug=False):
     if not _has_module('PyInstaller'):
         raise FbsError(
             "Could not find PyInstaller. Maybe you need to:\n"
-            "    pip install PyInstaller==4.1"
+            "    pip install PyInstaller==4.5.1"
         )
     # Import respective functions late to avoid circular import
     # fbs <-> fbs.freeze.X.

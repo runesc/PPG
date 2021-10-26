@@ -1,7 +1,6 @@
-PyQt5>=5.15.2
-PySide2>=5.15.2
-PySide6==6.0.0
-PyInstaller==4.1
+PyInstaller==4.5.1
 rsa>=3.4.2
 boto3
 sentry-sdk>=0.6.6
+termcolor==1.1.0
+

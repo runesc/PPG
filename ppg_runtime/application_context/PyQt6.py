@@ -21,9 +21,9 @@ only package the one necessary library, and prevents the above problems.
 """
 
 from . import _ApplicationContext, _QtBinding, cached_property
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QApplication
-from PyQt5.QtNetwork import QAbstractSocket
+from PyQt6.QtGui import QIcon
+from PyQt6.QtWidgets import QApplication
+from PyQt6.QtNetwork import QAbstractSocket
 from . import PPGLifeCycle
 
 class ApplicationContext(_ApplicationContext):

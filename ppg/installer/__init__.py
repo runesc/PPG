@@ -1,6 +1,6 @@
 from ppg import path, LOADED_PROFILES
 from ppg.resources import _copy
-from fbs_runtime._source import default_path
+from ppg_runtime._source import default_path
 
 def _generate_installer_resources():
     for path_fn in default_path, path:

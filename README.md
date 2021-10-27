@@ -65,6 +65,7 @@ Read the [Getting started](#getting-started) section for information, templates,
   - *`calc`* **New**
   For more info check the [docs](#Documentation). ✅
 - **New!** Now you can create components or views just typing *`ppg create component`* 🎉
+- Fixed component template does not import selected widget ✅
 
 ## Getting started
 This section is a step-by-step overview of using the PPG tool for creating apps.

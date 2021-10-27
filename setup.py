@@ -21,7 +21,7 @@ description = 'Create cross-platform desktop applications with Python and Qt5/Qt
 setup(
     name='ppg',
     # Also update ppg/_defaults/requirements/base.txt when you change this:
-    version='1.0.0',
+    version='1.0.1',
     description=description,
     long_description=
         description + '\n\nHome page: ',
@@ -39,7 +39,7 @@ setup(
             'ppg/installer/mac', 'create-dmg'
         )
     },
-    install_requires=['PyInstaller==4.1'],
+    install_requires=['PyInstaller==4.5.1'],
     extras_require={
         # Also update requirements.txt when you change this:
         'licensing': ['rsa>=3.4.2'],
@@ -47,7 +47,6 @@ setup(
         'upload': ['boto3']
     },
     classifiers=[
-        'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
 
         'License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)',

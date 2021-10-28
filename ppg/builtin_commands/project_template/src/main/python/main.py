@@ -4,6 +4,9 @@ from ${python_bindings}.QtWidgets import QMainWindow, QLabel
 
 
 class MyApp(PPGLifeCycle, QMainWindow, ApplicationContext):
+
+    store = {}
+
     def render_(self):
         label = QLabel('Hello World!', parent=self)
 

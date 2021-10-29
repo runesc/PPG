@@ -35,7 +35,7 @@ def init():
     """
     Start a new project in the current directory
     """
-    print('PPG init v1.0.0\n')
+    print('PPG init v1.0.3\n')
     if exists('src'):
         raise FbsError('The src/ directory already exists. Aborting.')
     app = prompt_for_value('App name', default='MyApp')
@@ -90,7 +90,7 @@ def init():
 
     _LOG.info(
         "Created the src/ directory. If you have %s installed, you can now "
-        "do:\n\n    ppg run", python_bindings
+        "do:\n\n    ppg start", python_bindings
     )
 
 @command
@@ -98,7 +98,7 @@ def version(): # pragma: no cover
     """
     Prints the version of ppg
     """
-    print('PPG v%s' % SETTINGS['version'])
+    print('PPG v1.0.3')
 
 @command
 def create(type="component"):
@@ -127,7 +127,7 @@ def create(type="component"):
         raise FbsError("[Error]: The selected component type is invalid")
 
 @command
-def run():
+def start():
     """
     Run your app from source
     """

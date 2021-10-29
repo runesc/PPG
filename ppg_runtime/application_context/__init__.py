@@ -38,13 +38,19 @@ class PPGLifeCycle:
             self.setAttribute(Qt.WA_StyledBackground, True)
         except ImportError or ModuleNotFoundError as e: pass
     def render_(self):pass
-    def resizeEvent(self, e=None): pass
+    def resizeEvent(self, e=None):
+        self.responsive_UI()
     def component_did_mount(self): pass
     def set_CSS(self, path=None): pass
     def responsive_UI(self):pass
     def destroyComponent(self):
         self.setParent(None)
         self.deleteLater()
+
+    def find(self, type, name):
+        return self.findChild(type, name)
+
+
 
     @staticmethod
     def calc(a, b): return int((a * b) / 100.0)

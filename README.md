@@ -57,15 +57,17 @@ Read the [Getting started](#getting-started) section for information, templates,
   - *`component_will_mount`* **Renamed**
   - *`allow_bg`* **New**
   - *`render_`*
-  - *`resizeEvent`* **New**
+  - *`resizeEvent`* **Updated**
   - *`component_did_mount`* **Renamed**
   - *`set_CSS`*  **Renamed**
   - *`responsive_UI`* **Renamed**
   - *`destroyComponent`* **New**
+  - *`find`* **New**
   - *`calc`* **New**
   For more info check the [docs](#Documentation). ✅
 - **New!** Now you can create components or views just typing *`ppg create component`* 🎉
 - Fixed component template does not import selected widget ✅
+- Modified Icons updated
 
 ## Getting started
 This section is a step-by-step overview of using the PPG tool for creating apps.

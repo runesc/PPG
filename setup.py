@@ -15,7 +15,7 @@ description = 'Create cross-platform desktop applications with Python and Qt5/Qt
 setup(
     name='ppg',
     # Also update ppg/_defaults/requirements/base.txt when you change this:
-    version='1.0.2',
+    version='1.0.3',
     description=description,
     long_description=
         description + '\n\nHome page: ',

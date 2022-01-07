@@ -33,7 +33,7 @@ setup(
             'ppg/installer/mac', 'create-dmg'
         )
     },
-    install_requires=['PyInstaller==4.5.1'],
+    install_requires=['PyInstaller>=4.5.1'],
     extras_require={
         # Also update requirements.txt when you change this:
         'licensing': ['rsa>=3.4.2'],
@@ -46,13 +46,6 @@ setup(
         'License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)',
 
         'Operating System :: OS Independent',
-
-        'Programming Language :: Python',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
-        'Programming Language :: Python :: 3.8',
 
         'Topic :: Software Development :: Libraries',
         'Topic :: Software Development :: Libraries :: Python Modules'

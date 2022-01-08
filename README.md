@@ -82,8 +82,7 @@ This section is a step-by-step overview of using the PPG tool for creating apps.
 There are different ways to install PPG but before installing it, we recommend creating a virtual environment with virtualenv or conda. We do not recommend installing it directly on your computer to avoid compatibility problems in future projects.
 
 ##### Using Conda
-Run the following command to create your virtual environment, be careful which version of python you use PPG works with python 3.5.x to 3.8.x.
-Run the following command to create your virtual environment, be careful which version of python you use PPG works with python 3.5.x to 3.8.x.
+Run the following command to create your virtual environment:
 
 ```bash
 conda create -n YOUR_ENV_NAME python=3.X -y

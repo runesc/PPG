@@ -23,7 +23,7 @@ def create_installer_mac():
             path('${freeze_dir}')
         ]
         if is_mac():
-            mmajor, minor = platform.mac_ver()[0].split('.')[:2]
+            major, minor = platform.mac_ver()[0].split('.')[:2]
             if (int(major) == 10 and int(minor) >= 15) or int(major) >= 11:
                 pdata.insert(1, '--no-internet-enable')
         check_call(pdata, stdout=DEVNULL)

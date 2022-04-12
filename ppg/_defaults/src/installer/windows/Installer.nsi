@@ -1,5 +1,17 @@
 !include MUI2.nsh
 !include FileFunc.nsh
+!define MUI_ICON "..\${app_name}\Icon.ico"
+!define MUI_UNICON "..\${app_name}\Icon.ico"
+
+!getdllversion "..\${app_name}\${app_name}.exe" ver
+!define VERSION "${ver1}.${ver2}.${ver3}.${ver4}"
+
+VIProductVersion "${VERSION}"
+VIAddVersionKey "ProductName" "${app_name}"
+VIAddVersionKey "FileVersion" "${VERSION}"
+VIAddVersionKey "ProductVersion" "${VERSION}"
+VIAddVersionKey "LegalCopyright" "(C) ${author}"
+VIAddVersionKey "FileDescription" "${app_name}"
 
 ;--------------------------------
 ;Perform Machine-level install, if possible
@@ -49,7 +61,7 @@ FunctionEnd
     !define MUI_FINISHPAGE_RUN
     !define MUI_FINISHPAGE_RUN_CHECKED
     !define MUI_FINISHPAGE_RUN_TEXT "Run ${app_name}"
-    !define MUI_FINISHPAGE_RUN_FUNCTION "LaunchLink"
+    !define MUI_FINISHPAGE_RUN_FUNCTION "LaunchAsNonAdmin"
   !insertmacro MUI_PAGE_FINISH
 
   !insertmacro MUI_UNPAGE_CONFIRM
@@ -77,6 +89,7 @@ Section
   WriteRegStr SHCTX "${UNINST_KEY}" "QuietUninstallString" \
     "$\"$InstDir\uninstall.exe$\" /$MultiUser.InstallMode /S"
   WriteRegStr SHCTX "${UNINST_KEY}" "Publisher" "${author}"
+  WriteRegStr SHCTX "${UNINST_KEY}" "DisplayIcon" "$InstDir\uninstall.exe"
   ${GetSize} "$InstDir" "/S=0K" $0 $1 $2
   IntFmt $0 "0x%08X" $0
   WriteRegDWORD SHCTX "${UNINST_KEY}" "EstimatedSize" "$0"
@@ -95,7 +108,6 @@ Section "Uninstall"
 
 SectionEnd
 
-Function LaunchLink
-  !addplugindir "."
-  ShellExecAsUser::ShellExecAsUser "open" "$SMPROGRAMS\${app_name}.lnk"
+Function LaunchAsNonAdmin
+  Exec '"$WINDIR\explorer.exe" "$InstDir\${app_name}.exe"'
 FunctionEnd

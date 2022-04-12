@@ -1,5 +1,7 @@
 from ppg import path, SETTINGS
 from ppg.freeze import run_pyinstaller, _generate_resources
+from ppg.resources import _copy
+from ppg_runtime._source import default_path
 from os import remove
 from os.path import join, exists
 from shutil import copy
@@ -15,6 +17,9 @@ def freeze_windows(debug=False):
         # We therefore only add it when we're not debugging.
         args.append('--windowed')
     args.extend(['--icon', path('src/main/icons/Icon.ico')])
+    for path_fn in default_path, path:
+        _copy(path_fn, 'src/freeze/windows/version_info.py', path('target/PyInstaller'))
+    args.extend(['--version-file', path('target/PyInstaller/version_info.py')])
     run_pyinstaller(args, debug)
     _restore_corrupted_python_dlls()
     _generate_resources()

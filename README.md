@@ -11,7 +11,7 @@
 <p align="center">
   Sleek, intuitive, and powerful tool for faster and easier PyQt/PySide App development.
   <br>
-  <a href="#docs"><strong>Explore PPG docs »</strong></a>
+  <a href="https://ppg.neuri.ai/"><strong>Explore PPG docs »</strong></a>
   <br>
 </p>
 

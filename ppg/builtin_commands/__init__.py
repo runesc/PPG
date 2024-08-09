@@ -52,8 +52,6 @@ def init():
         "Please select your Qt binding [default: 'PySide6']", choices=('PyQt5', 'PyQt6', 'PySide2', 'PySide6'), default='PySide6'
     )
 
-    #TODO: Ask user if wants to use RefreshUI framework
-
     eg_bundle_id = 'com.%s.%s' % (
         author.lower().split()[0], ''.join(app.lower().split())
     )
@@ -83,7 +81,7 @@ def init():
         json_data['version'] = version
         json_data['hidden_imports'] = []
         file.close()
-        
+
     with open ('./src/build/settings/base.json', 'w') as file:
         json.dump(json_data, file, indent=4)
         file.close()
@@ -94,11 +92,7 @@ def init():
     )
 
 @command
-def version(): # pragma: no cover
-    """
-    Prints the version of ppg
-    """
-    print('PPG v1.0.3')
+def version(): _LOG.info('PPG v1.1.0')
 
 @command
 def create(type="component"):
@@ -115,7 +109,7 @@ def create(type="component"):
         # Build the component code
         template = Template(component_template)
         code = template.substitute(Binding=binding, Name=name.capitalize(), Widget=inherit_from)
-        
+
         # Write the code to the file
         folder = "./src/main/python/components" if type.lower() == "component" else "./src/main/python/views"
         with open(folder + f"/{name.capitalize()}.py", "w") as file:
@@ -198,7 +192,7 @@ def freeze(debug=False):
     #! Change this
     _LOG.info(
         "Done. You can now run `%s`. If that doesn't work, see "
-        "https://build-system.fman.io/troubleshooting.", executable
+        "https://github.com/runesc/PPG/issues to report the issue.", executable
     )
 
 @command
@@ -576,4 +570,3 @@ def _get_next_version(version):
     version_parts = version.split('.')
     next_patch = str(int(version_parts[-1]) + 1)
     return '.'.join(version_parts[:-1]) + '.' + next_patch
-    

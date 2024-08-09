@@ -7,3 +7,4 @@ ppg.egg-info/
 target/
 test.py
 buid_and_run.sh
+test/

@@ -1,7 +1,7 @@
+import os
 from os.path import relpath, join
 from setuptools import setup, find_packages
 
-import os
 
 def _get_package_data(pkg_dir, data_subdir):
     result = []
@@ -14,14 +14,13 @@ def _get_package_data(pkg_dir, data_subdir):
 description = 'Create cross-platform desktop applications with Python and Qt5/Qt6'
 setup(
     name='ppg',
-    # Also update ppg/_defaults/requirements/base.txt when you change this:
-    version='1.0.3',
+    version='1.1.0',
     description=description,
     long_description=
         description + '\n\nHome page: ',
     author='Luis Alfredo Reyes',
-    author_email='',
-    url='',
+    author_email='alfredo@neuri.ai',
+    url='https://ppg.neuri.ai',
     packages=find_packages(exclude=('tests', 'tests.*')),
     package_data={
         'ppg': _get_package_data('ppg', '_defaults'),
@@ -33,9 +32,8 @@ setup(
             'ppg/installer/mac', 'create-dmg'
         )
     },
-    install_requires=['PyInstaller>=4.5.1'],
+    install_requires=['PyInstaller==6.9.0'],
     extras_require={
-        # Also update requirements.txt when you change this:
         'licensing': ['rsa>=3.4.2'],
         'sentry': ['sentry-sdk>=0.6.6'],
         'upload': ['boto3']

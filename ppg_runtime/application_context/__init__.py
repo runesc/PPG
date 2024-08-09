@@ -28,7 +28,7 @@ class PPGLifeCycle:
         self.set_CSS()
         self.responsive_UI()
 
-    def component_will_mount(self):pass
+    def component_will_mount(self): pass
     def allow_bg(self):
         try:
             from PySide2.QtCore import Qt
@@ -36,13 +36,18 @@ class PPGLifeCycle:
             from PyQt5.QtCore import Qt
             from PyQt6.QtCore import Qt
             self.setAttribute(Qt.WA_StyledBackground, True)
-        except ImportError or ModuleNotFoundError as e: pass
-    def render_(self):pass
+        except ImportError or ModuleNotFoundError as e:
+            pass
+
+    def render_(self): pass
+
     def resizeEvent(self, e=None):
         self.responsive_UI()
+
     def component_did_mount(self): pass
     def set_CSS(self, path=None): pass
-    def responsive_UI(self):pass
+    def responsive_UI(self): pass
+
     def destroyComponent(self):
         self.setParent(None)
         self.deleteLater()
@@ -50,18 +55,38 @@ class PPGLifeCycle:
     def find(self, type, name):
         return self.findChild(type, name)
 
+    @cached_property
+    def _resource_locator(self):
+        if is_frozen():
+            resource_dirs = _frozen.get_resource_dirs()
+        else:
+            resource_dirs = _source.get_resource_dirs(self._project_dir)
+        return ResourceLocator(resource_dirs)
 
+    @cached_property
+    def _project_dir(self):
+        assert not is_frozen(), 'Only available when running from source'
+        return _source.get_project_dir()
+
+    def get_resource(self, *rel_path):
+        """
+        Return the absolute path to the data file with the given name or
+        (relative) path. When running from source, searches src/main/resources.
+        Otherwise, searches your app's installation directory. If no file with
+        the given name or path exists, a FileNotFoundError is raised.
+        """
+        return self._resource_locator.locate(*rel_path)
 
     @staticmethod
     def calc(a, b): return int((a * b) / 100.0)
 
-
 class _ApplicationContext:
     """
-    The main point of contact between your application and fbs. For information
+    The main point of contact between your application and ppg. For information
     on how to use it, please see the Manual:
         https://build-system.fman.io/manual/#your-python-code
     """
+
     def __init__(self):
         if self.excepthook:
             self.excepthook.install()
@@ -76,12 +101,14 @@ class _ApplicationContext:
             self._signal_wakeup_handler.install()
         if self.app_icon:
             self.app.setWindowIcon(self.app_icon)
+
     def run(self):
         """
         You should overwrite this method with the steps for starting your app.
         See eg. fbs's tutorial.
         """
         raise NotImplementedError()
+
     @cached_property
     def app(self):
         """
@@ -93,6 +120,7 @@ class _ApplicationContext:
         result.setApplicationName(self.build_settings['app_name'])
         result.setApplicationVersion(self.build_settings['version'])
         return result
+
     @cached_property
     def build_settings(self):
         """
@@ -102,6 +130,7 @@ class _ApplicationContext:
         if is_frozen():
             return _frozen.load_build_settings()
         return _source.load_build_settings(self._project_dir)
+
     def get_resource(self, *rel_path):
         """
         Return the absolute path to the data file with the given name or
@@ -110,6 +139,7 @@ class _ApplicationContext:
         the given name or path exists, a FileNotFoundError is raised.
         """
         return self._resource_locator.locate(*rel_path)
+
     @cached_property
     def exception_handlers(self):
         """
@@ -118,6 +148,7 @@ class _ApplicationContext:
         more information.
         """
         return [StderrExceptionHandler()]
+
     @cached_property
     def licensing(self):
         """
@@ -130,9 +161,10 @@ class _ApplicationContext:
         # `rsa`. We don't want to force all users to install this library.
         # So we import fbs_runtime.licensing here, instead of at the top of this
         # file. This lets people who don't use licensing avoid the dependency.
-        from fbs_runtime.licensing import _Licensing
+        from ppg_runtime.licensing import _Licensing
 
         return _Licensing(self.build_settings['licensing_pubkey'])
+
     @cached_property
     def app_icon(self):
         """
@@ -141,6 +173,7 @@ class _ApplicationContext:
         """
         if not is_mac():
             return self._qt_binding.QIcon(self.get_resource('Icon.ico'))
+
     @cached_property
     def excepthook(self):
         """
@@ -149,12 +182,12 @@ class _ApplicationContext:
         fbs's excepthook implementation.
         """
         return _Excepthook(self.exception_handlers)
-    
+
     @cached_property
     def _qt_binding(self):
         # Implemented in subclasses.
         raise NotImplementedError()
-    
+
     @cached_property
     def _resource_locator(self):
         if is_frozen():
@@ -162,13 +195,16 @@ class _ApplicationContext:
         else:
             resource_dirs = _source.get_resource_dirs(self._project_dir)
         return ResourceLocator(resource_dirs)
+
     @cached_property
     def _project_dir(self):
         assert not is_frozen(), 'Only available when running from source'
         return _source.get_project_dir()
 
+
 _QtBinding = \
     namedtuple('_QtBinding', ('QApplication', 'QIcon', 'QAbstractSocket'))
+
 
 def is_frozen():
     """
@@ -176,6 +212,7 @@ def is_frozen():
     False when running from source.
     """
     return getattr(sys, 'frozen', False)
+
 
 def get_application_context(DevelopmentAppCtxtCls, FrozenAppCtxtCls=None):
     if FrozenAppCtxtCls is None:

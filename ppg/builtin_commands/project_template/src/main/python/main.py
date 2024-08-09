@@ -1,16 +1,15 @@
 import sys
 from ppg_runtime.application_context.${python_bindings} import ApplicationContext, PPGLifeCycle
+from ppg_runtime.application_context import PPGStore
 from ${python_bindings}.QtWidgets import QMainWindow, QLabel
 
-class MyApp(PPGLifeCycle, QMainWindow,):
-
-    store = {}
+class MyApp(PPGLifeCycle, QMainWindow, PPGStore):
 
     def __init__(self, appctxt):
         super().__init__(appctxt)
 
     def render_(self):
-        label = QLabel('Hello World!', parent=self)
+        QLabel('Hello World!', parent=self)
 
     def responsive_UI(self):
         self.setMinimumSize(640, 480)

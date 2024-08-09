@@ -1,3 +1,4 @@
+import sys
 from collections import namedtuple
 from ppg_runtime import _state, _frozen, _source
 from ppg_runtime._resources import ResourceLocator
@@ -5,8 +6,7 @@ from ppg_runtime._signal import SignalWakeupHandler
 from ppg_runtime.excepthook import _Excepthook, StderrExceptionHandler
 from ppg_runtime.platform import is_windows, is_mac
 from functools import lru_cache
-import importlib
-import sys
+
 
 def cached_property(getter):
     """
@@ -18,8 +18,62 @@ def cached_property(getter):
     return property(lru_cache()(getter))
 
 
+class PPGStore:
+    _instance = None
+    _store = {}
+    _observers = []
+
+    def __new__(cls, *args, **kwargs):
+        if not cls._instance:
+            cls._instance = super(PPGStore, cls).__new__(cls, *args, **kwargs)
+        return cls._instance
+
+    def add_to_store(self, obj:dict):
+        if obj and isinstance(obj, dict):
+            self._store.update(obj)
+        else:
+            raise ValueError("Provide either a key and value or a dictionary object")
+
+        self._notify_observers()
+
+    def remove_from_store(self, key):
+        if key in self._store:
+            del self._store[key]
+            self._notify_observers()
+        else:
+            raise KeyError(f"Key '{key}' not found in store")
+
+    def _notify_observers(self):
+        for observer in self._observers:
+            observer.update_store(self._store)  # Llama al método `update_store` de cada observador
+
+    def subscribe_to_store(self, observer):
+        if hasattr(observer, 'update_store') and callable(observer.update_store):
+            self._observers.append(observer)
+        else:
+            raise ValueError("Observer must have an 'update_store' method")
+
+    def remove_observer(self, observer):
+        if observer in self._observers:
+            self._observers.remove(observer)
+        else:
+            raise ValueError("Observer not found")
+
+    @property
+    def store(self):
+        return self._store
+
+    @store.setter
+    def store(self, value):
+        if isinstance(value, dict):
+            self._store.update(value)
+            self._notify_observers()
+        else:
+            raise ValueError("store must be a dictionary")
+
+
 class PPGLifeCycle:
-    def __init__(self, parent=None):
+    def __init__(self, *args, **kwargs):
         super().__init__()
         self.component_will_mount()
         self.allow_bg()
@@ -29,6 +83,7 @@ class PPGLifeCycle:
         self.responsive_UI()
 
     def component_will_mount(self): pass
+
     def allow_bg(self):
         try:
             from PySide2.QtCore import Qt
@@ -79,6 +134,7 @@ class PPGLifeCycle:
 
     @staticmethod
     def calc(a, b): return int((a * b) / 100.0)
+
 
 class _ApplicationContext:
     """

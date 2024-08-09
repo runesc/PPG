@@ -35,17 +35,13 @@ def init():
     """
     Start a new project in the current directory
     """
-    print('PPG init v1.0.3\n')
+    _LOG.info('PPG init v1.1.0\n')
     if exists('src'):
         raise FbsError('The src/ directory already exists. Aborting.')
     app = prompt_for_value('App name', default='MyApp')
     version = prompt_for_value('Version', default='1.0.0')
     user = getuser().title()
     author = prompt_for_value('Author', default=user)
-    has_pyqt = _has_module('PyQt5')
-    has_pyqt6 = _has_module('PyQt6')
-    has_pyside = _has_module('PySide2')
-    has_pyside_6 = _has_module('PySide6')
 
     #! Always ask to user which framework wants to use
     python_bindings = prompt_for_value(
@@ -126,7 +122,7 @@ def start():
     Run your app from source
     """
     require_existing_project()
-    if not _has_module('PyQt5') and not _has_module('PySide2') and not _has_module('PySide6'):
+    if not _has_module('PyQt5') and not _has_module('PyQt6') and not _has_module('PySide2') and not _has_module('PySide6'):
         raise FbsError(
             "Couldn't find PyQt5, PyQt6, PySide2 or PySide6. Maybe you need to:\n"
             "    pip install PyQt5 or\n"

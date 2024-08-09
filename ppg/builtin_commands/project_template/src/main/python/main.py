@@ -18,5 +18,6 @@ if __name__ == '__main__':
     appctxt = ApplicationContext()
     window = MyApp(appctxt)
     window.show()
-    exit_code = appctxt.app.exec()
-    sys.exit(exit_code)
+    # This fixes the issue with PySide2 that the exec function is not found
+    exec_func = getattr(appctxt.app, 'exec', appctxt.app.exec_)
+    sys.exit(exec_func())

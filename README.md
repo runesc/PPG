@@ -46,7 +46,6 @@ Read the [Getting started](#getting-started) section for information, templates,
 ![GitHub forks](https://img.shields.io/github/forks/runesc/PPG)
 ![GitHub stars](https://img.shields.io/github/stars/runesc/PPG)
 ![GitHub licence](	https://img.shields.io/github/license/runesc/PPG)
-![Twitter](https://img.shields.io/twitter/url?url=https%3A%2F%2Fgithub.com%2Frunesc%2FPPG)
 
 ## Changelog
 

@@ -100,15 +100,22 @@ def create(type="component"):
             file.close()
         inherit_from = prompt_for_value("Inherit from", default="QWidget" if binding == "PySide6" or binding == "PySide2" else "QtWidget")
 
-        _LOG.info("Creating component...")
-
         # Build the component code
         template = Template(component_template)
         code = template.substitute(Binding=binding, Name=name.capitalize(), Widget=inherit_from)
 
+        # get absolute path (where the project is located using os
+        project_path = os.path.abspath(os.getcwd())
+        PATH = f"{project_path}/src/main/python/{type.lower()}s"
+
+        _LOG.info(f"Creating component {name.capitalize()} in {PATH}")
+
+        # if the folder doesn't exist, create it
+        if not os.path.exists(PATH):
+            os.makedirs(PATH)
+
         # Write the code to the file
-        folder = "./src/main/python/components" if type.lower() == "component" else "./src/main/python/views"
-        with open(folder + f"/{name.capitalize()}.py", "w") as file:
+        with open(f"{PATH}/{name.capitalize()}.py", "w") as file:
             file.write(code)
             file.close()
 

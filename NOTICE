@@ -14,10 +14,10 @@ Python Package Generator (PPG)
 URL: https://github.com/runesc/PPG
 Version: 1.0.1
 
-Imported by ppg's Python code.
+This project is based on the fbs library, originally developed by Michael Herrmann.
+fbs URL: https://github.com/mherrmann/fbs
+Used under the terms of the GNU General Public License version 3.
 
-Used under the terms of the GNU General Public License version 3. The license
-text can be found in the LICENSE file.
 
 PyQt5
 =====

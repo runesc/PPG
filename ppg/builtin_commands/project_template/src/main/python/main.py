@@ -1,6 +1,6 @@
 import sys
-from ppg_runtime.application_context.${python_bindings} import ApplicationContext, PPGLifeCycle
-from ppg_runtime.application_context import PPGStore
+from ppg_runtime.application_context.${python_bindings} import ApplicationContext
+from ppg_runtime.application_context import PPGStore, PPGLifeCycle
 from ${python_bindings}.QtWidgets import QMainWindow, QLabel
 
 class MyApp(PPGLifeCycle, QMainWindow, PPGStore):

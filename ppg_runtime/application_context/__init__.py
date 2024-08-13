@@ -28,11 +28,12 @@ class PPGStore:
             cls._instance = super(PPGStore, cls).__new__(cls, *args, **kwargs)
         return cls._instance
 
-    def add_to_store(self, obj:dict):
+    def add_to_store(self, obj: dict):
         if obj and isinstance(obj, dict):
             self._store.update(obj)
         else:
-            raise ValueError("Provide either a key and value or a dictionary object")
+            raise ValueError(
+                "Provide either a key and value or a dictionary object")
 
         self._notify_observers()
 
@@ -45,7 +46,8 @@ class PPGStore:
 
     def _notify_observers(self):
         for observer in self._observers:
-            observer.update_store(self._store)  # Llama al método `update_store` de cada observador
+            # Llama al método `update_store` de cada observador
+            observer.update_store(self._store)
 
     def subscribe_to_store(self, observer):
         if hasattr(observer, 'update_store') and callable(observer.update_store):
@@ -72,9 +74,9 @@ class PPGStore:
             raise ValueError("store must be a dictionary")
 
 
-class PPGLifeCycle:
+def init_lifecycle(cls):
     def __init__(self, *args, **kwargs):
-        super().__init__()
+        super(cls, self).__init__(*args, **kwargs)
         self.component_will_mount()
         self.allow_bg()
         self.render_()
@@ -82,6 +84,11 @@ class PPGLifeCycle:
         self.set_CSS()
         self.responsive_UI()
 
+    cls.__init__ = __init__
+    return cls
+
+
+class PPGLifeCycle:
     def component_will_mount(self): pass
 
     def allow_bg(self):

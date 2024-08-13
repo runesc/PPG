@@ -94,13 +94,21 @@ class PPGLifeCycle:
     def allow_bg(self):
         try:
             from PySide2.QtCore import Qt
-            from PySide6.QtCore import Qt
-            from PyQt5.QtCore import Qt
-            from PyQt6.QtCore import Qt
             self.setAttribute(Qt.WA_StyledBackground, True)
-        except ImportError or ModuleNotFoundError as e:
-            pass
-
+        except ImportError:
+            try:
+                from PySide6.QtCore import Qt
+                self.setAttribute(Qt.WA_StyledBackground, True)
+            except ImportError:
+                try:
+                    from PyQt5.QtCore import Qt
+                    self.setAttribute(Qt.WA_StyledBackground, True)
+                except ImportError:
+                    try:
+                        from PyQt6.QtCore import Qt
+                        self.setAttribute(Qt.WA_StyledBackground, True)
+                    except ImportError:
+                        pass
     def render_(self): pass
 
     def resizeEvent(self, e=None):

@@ -32,7 +32,8 @@ _LOG = logging.getLogger(__name__)
 
 # load package.json in project root
 def _load_package_json():
-    with open('package.json', 'r') as file:
+    PPG_PATH = os.path.dirname(os.path.abspath(__file__))
+    with open(f'{PPG_PATH}/package.json', 'r') as file:
         return json.loads(file.read())
 
 @command

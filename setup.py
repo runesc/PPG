@@ -59,5 +59,9 @@ setup(
     license=PACKAGE['license'],
     keywords=PACKAGE['keywords'],
     platforms=['MacOS', 'Windows', 'Debian', 'Fedora', 'CentOS', 'Arch', 'Raspbian'],
-    test_suite='tests'
+    test_suite='tests',
+    include_package_data=True,
+    data_files=[
+        ('ppg/builtin_commands', ['package.json']),
+    ],
 )

@@ -5,8 +5,7 @@ from ${python_bindings}.QtWidgets import QMainWindow, QLabel
 
 @init_lifecycle
 class MyApp(QMainWindow, PPGLifeCycle, PPGStore):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def component_will_mount(self):
         self.subscribe_to_store(self)
 
     def render_(self):

@@ -8,3 +8,4 @@ target/
 test.py
 buid_and_run.sh
 test/
+__pycache__/

@@ -30,12 +30,17 @@ import json
 
 _LOG = logging.getLogger(__name__)
 
+# load package.json in project root
+def _load_package_json():
+    with open('package.json', 'r') as file:
+        return json.loads(file.read())
+
 @command
 def init():
     """
     Start a new project in the current directory
     """
-    _LOG.info('PPG init v1.1.0\n')
+    _LOG.info(f'PPG init v{_load_package_json()["version"]}\n')
     if exists('src'):
         raise FbsError('The src/ directory already exists. Aborting.')
     app = prompt_for_value('App name', default='MyApp')
@@ -88,7 +93,7 @@ def init():
     )
 
 @command
-def version(): _LOG.info('PPG v1.1.0')
+def version(): _LOG.info(f'PPG init v{_load_package_json()["version"]}\n')
 
 @command
 def create(type="component"):
@@ -154,7 +159,7 @@ def freeze(debug=False):
     if not _has_module('PyInstaller'):
         raise FbsError(
             "Could not find PyInstaller. Maybe you need to:\n"
-            "    pip install PyInstaller==4.5.1"
+            "    pip install PyInstaller>=9.6.0"
         )
     version = SETTINGS['version']
     if not is_valid_version(version):

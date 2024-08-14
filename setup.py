@@ -1,7 +1,11 @@
 import os
+import json
 from os.path import relpath, join
 from setuptools import setup, find_packages
 
+def _load_package_json():
+    with open('package.json', 'r') as file:
+        return json.loads(file.read())
 
 def _get_package_data(pkg_dir, data_subdir):
     result = []
@@ -11,16 +15,17 @@ def _get_package_data(pkg_dir, data_subdir):
             result.append(relpath(filepath, pkg_dir))
     return result
 
-description = 'Create cross-platform desktop applications with Python and Qt5/Qt6'
+PACKAGE = _load_package_json()
+
 setup(
     name='ppg',
-    version='1.1.0',
-    description=description,
+    version=PACKAGE['version'],
+    description=PACKAGE['description'],
     long_description=
-        description + '\n\nHome page: ',
-    author='Luis Alfredo Reyes',
-    author_email='alfredo@neuri.ai',
-    url='https://ppg.neuri.ai',
+        PACKAGE['description'] + '\n\nHome page: ',
+    author=PACKAGE['author'],
+    author_email=PACKAGE['author_email'],
+    url=PACKAGE['homepage'],
     packages=find_packages(exclude=('tests', 'tests.*')),
     package_data={
         'ppg': _get_package_data('ppg', '_defaults'),
@@ -51,8 +56,8 @@ setup(
     entry_points={
         'console_scripts': ['ppg=ppg.__main__:_main']
     },
-    license='GPLv3 or later',
-    keywords=['PyQt', 'PyQt5', 'PyQt6', 'PySide2', 'PySide6', 'Qt5', 'Qt6'],
+    license=PACKAGE['license'],
+    keywords=PACKAGE['keywords'],
     platforms=['MacOS', 'Windows', 'Debian', 'Fedora', 'CentOS', 'Arch', 'Raspbian'],
     test_suite='tests'
 )

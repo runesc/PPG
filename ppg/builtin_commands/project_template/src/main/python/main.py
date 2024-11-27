@@ -4,7 +4,7 @@ from ppg_runtime.application_context import PPGStore, PPGLifeCycle, init_lifecyc
 from ${python_bindings}.QtWidgets import QMainWindow, QLabel
 
 @init_lifecycle
-class MyApp(QMainWindow, PPGLifeCycle, PPGStore):
+class ${app_name}(QMainWindow, PPGLifeCycle, PPGStore):
     def component_will_mount(self):
         self.subscribe_to_store(self)
 
@@ -14,10 +14,13 @@ class MyApp(QMainWindow, PPGLifeCycle, PPGStore):
     def responsive_UI(self):
         self.setMinimumSize(640, 480)
 
+    def update_store(self, store):
+        pass
+
 
 if __name__ == '__main__':
     appctxt = ApplicationContext()
-    window = MyApp()
+    window = ${app_name}()
     window.show()
     # This fixes the issue with PySide2 that the exec function is not found
     exec_func = getattr(appctxt.app, 'exec', appctxt.app.exec_)
